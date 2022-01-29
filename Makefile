@@ -110,9 +110,11 @@ $(TARGET).sym: $(OBJ)
 	@echo dsym $(notdir $(TARGET).dSYM)
 	$(VERBOSE) $(ENV) $(DSYM) $@ -o $(TARGET).dSYM
 
-$(TARGET): $(TARGET).sym
+$(TARGET): $(TARGET).sym src/xhyve-entitlements.plist
 	@echo strip $(notdir $@)
 	$(VERBOSE) $(ENV) $(STRIP) $(TARGET).sym -o $@
+	@echo sign $(notdir $@)
+	$(VERBOSE) $(ENV) $(CODESIGN) -s - --entitlements src/xhyve-entitlements.plist --force $@
 
 clean:
 	@rm -rf build

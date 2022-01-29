@@ -18,6 +18,7 @@ AS := clang
 LD := clang
 STRIP := strip
 DSYM := dsymutil
+CODESIGN := codesign
 
 ENV := \
   LANG=en_US.US-ASCII
